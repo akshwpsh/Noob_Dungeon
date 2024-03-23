@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 2365364133961340108}
   - component: {fileID: 4210143230946787485}
   - component: {fileID: 5347821135109743748}
+  - component: {fileID: -5372734266332267536}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -246,6 +247,7 @@ MonoBehaviour:
   - {fileID: 2365364133961340108}
   - {fileID: 4210143230946787485}
   - {fileID: 5347821135109743748}
+  - {fileID: -5372734266332267536}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
@@ -323,7 +325,6 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 903403872608332091}
   _networkObjectCache: {fileID: 903403872608332091}
   walkSpeed: 5
-  dir: {x: 0, y: 0, z: 0}
 --- !u!114 &5347821135109743748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,6 +341,22 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 903403872608332091}
   _networkObjectCache: {fileID: 903403872608332091}
   cam: {fileID: 4979585911677674424}
+--- !u!114 &-5372734266332267536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6660377548721645445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08d290cbf4accd74a9638bea69e79b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 3
+  _addedNetworkObject: {fileID: 903403872608332091}
+  _networkObjectCache: {fileID: 903403872608332091}
+  area: {fileID: 6965001511134561795}
 --- !u!1 &6965001511134561795
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,7 +374,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4177645273857892709
 Transform:
   m_ObjectHideFlags: 0

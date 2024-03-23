@@ -17,8 +17,11 @@ public class PlayerController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(IsOwner)
+        if (IsOwner)
+        {
             Instance = this;
+        }
+           
         Move();
     }
 

@@ -10,7 +10,6 @@ public class MapRepos : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        print("OnTriggerExit2D");
         if(!other.CompareTag("Area"))
             return;
         
