@@ -14,15 +14,20 @@ public class InGameManager : NetworkBehaviour
     //private readonly SyncList<GameRule> gameRules = new SyncList<GameRule>();
     void Start()
     {
-        if (IsServer)
-        {
-            InvokeRepeating("SpawnEnemy", 1f, 1f);
-        }
+        
     }
     
     void Update()
     {
         
+    }
+    
+    public void startSpawn()
+    {
+        if (IsServer)
+        {
+            InvokeRepeating("SpawnEnemy", 1f, 1f);
+        }
     }
     
     void SpawnEnemy()
