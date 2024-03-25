@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Enemy : NetworkBehaviour
 {
+    public int health = 100;
+    private int maxHealth = 100;
     public float moveSpeed = 5f;
     private Transform target;
     
@@ -46,5 +48,22 @@ public class Enemy : NetworkBehaviour
         }
         Vector3 dir = target.position - transform.position;
         transform.Translate(dir.normalized * moveSpeed * Time.deltaTime, Space.World);
+    }
+    
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            if (IsServer)
+            {
+                Die();
+            }
+        }
+    }
+    
+    void Die()
+    {
+        ServerManager.Despawn(gameObject);
     }
 }

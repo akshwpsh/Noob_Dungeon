@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 5651226445413728389}
   - component: {fileID: 903403872608332091}
   - component: {fileID: 2365364133961340108}
+  - component: {fileID: 1905358518049552034}
   - component: {fileID: 4210143230946787485}
   - component: {fileID: 5347821135109743748}
   - component: {fileID: -5372734266332267536}
@@ -309,6 +310,23 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
+--- !u!114 &1905358518049552034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6660377548721645445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b274c399092494cb59d659627d2e66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 100
+  AttackPower: 10
+  Defense: 10
+  WalkSpeed: 5
+  Skills: []
 --- !u!114 &4210143230946787485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,7 +342,7 @@ MonoBehaviour:
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: 903403872608332091}
   _networkObjectCache: {fileID: 903403872608332091}
-  walkSpeed: 5
+  testSkill: {fileID: 4353273355644854744, guid: 0eac682848b205944b637d0afdf15e38, type: 3}
 --- !u!114 &5347821135109743748
 MonoBehaviour:
   m_ObjectHideFlags: 0
