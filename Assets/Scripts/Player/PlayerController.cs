@@ -54,16 +54,51 @@ public class PlayerController : NetworkBehaviour
     
     public void UseSkill()
     {
-        if (base.IsOwner)
+        foreach (PlayerSkill skill in playerStats.Skills)
         {
-            foreach (PlayerSkill skill in playerStats.Skills)
+            string skillName = skill.skillName;
+            SkillType skillType = skill.skillType;
+            switch (skillType)
             {
-                if (skill.skillType == SkillType.Active)
-                {
-                    skill.Use();
-                }
+                case SkillType.Active :
+                    if (Input.GetMouseButton(0))
+                    {
+                        if(skill.lastUsedTime + skill.cooltime < Time.time)
+                        {
+                            skill.lastUsedTime = Time.time;
+                            SpawnBullet(skill.skillPrefab);
+                        }
+                    }
+                    break;
+                case SkillType.Passive:
+                    if(skill.lastUsedTime + skill.cooltime < Time.time)
+                    {
+                        skill.lastUsedTime = Time.time;
+                        SpawnBullet(skill.skillPrefab);
+                    }
+                    break;
             }
         }
     }
+    
+    [ServerRpc]
+    public void SpawnBullet(GameObject bulletPrefab)
+    {
+        if (IsServer)
+        {
+            GameObject bullet = Instantiate(bulletPrefab);
+            bullet.transform.position = transform.position;
+            bullet.transform.rotation = transform.rotation;
+            
+            Bullet bulletScript = bullet.GetComponent<Bullet>();
+            if(bulletScript != null)
+            {
+                bulletScript.direction = transform.up;
+                bulletScript.speed = 10f;
+            }
+            ServerManager.Spawn(bullet);
+        }
+    }
+    
     
 }

@@ -342,7 +342,7 @@ MonoBehaviour:
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: 903403872608332091}
   _networkObjectCache: {fileID: 903403872608332091}
-  testSkill: {fileID: 4353273355644854744, guid: 0eac682848b205944b637d0afdf15e38, type: 3}
+  testSkill: {fileID: 11400000, guid: e19225b84f5be134a86307e2bf06f89e, type: 2}
 --- !u!114 &5347821135109743748
 MonoBehaviour:
   m_ObjectHideFlags: 0

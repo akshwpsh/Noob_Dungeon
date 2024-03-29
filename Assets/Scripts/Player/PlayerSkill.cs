@@ -9,12 +9,18 @@ public enum SkillType
     Active
 }
 
-public abstract class PlayerSkill : NetworkBehaviour
+[CreateAssetMenu(fileName = "New Skill", menuName = "PlayerSkill")]
+public class PlayerSkill : ScriptableObject
 {
    public string skillName;
    public string skillDescription;
    public SkillType skillType;
+   public float cooltime;
+   public float lastUsedTime;
+   public float speed;
+   public int damage;
+   public int skillLevel;
+   
    public GameObject skillPrefab;
-    
-   public abstract void Use();
+   
 }
