@@ -30,11 +30,11 @@ public class MapRepos : MonoBehaviour
             case "Ground":
                 if (diffx > diffy)
                 {
-                    transform.Translate(transform.right * dirX * 60);
+                    transform.Translate(transform.right * dirX * 100);
                 }
                 else if (diffx < diffy)
                 {
-                    transform.Translate(transform.up * dirY * 60);
+                    transform.Translate(transform.up * dirY * 100);
                 }
                 break;
         }

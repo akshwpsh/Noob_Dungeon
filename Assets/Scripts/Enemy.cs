@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class Enemy : NetworkBehaviour
 {
-    public int health = 100;
-    private int maxHealth = 100;
+    public int health = 20;
     public float moveSpeed = 5f;
     private Transform target;
     

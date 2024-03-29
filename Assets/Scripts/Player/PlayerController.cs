@@ -56,49 +56,88 @@ public class PlayerController : NetworkBehaviour
     {
         foreach (PlayerSkill skill in playerStats.Skills)
         {
-            string skillName = skill.skillName;
-            SkillType skillType = skill.skillType;
-            switch (skillType)
+            if(playerStats.isCooldownDone(skill, Time.time))
             {
-                case SkillType.Active :
-                    if (Input.GetMouseButton(0))
-                    {
-                        if(skill.lastUsedTime + skill.cooltime < Time.time)
+                playerStats.UseSkill(skill);
+                Vector2 dir = Vector2.zero;
+                switch (skill.skillTarget)
+                {
+                    case SkillTarget.Mouse:
+                        dir = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                        break;
+                    case SkillTarget.ClosestEnemy:
+                        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                        float shortestDistance = Mathf.Infinity;
+                        GameObject nearestEnemy = null;
+                        foreach (GameObject enemy in enemies)
                         {
-                            skill.lastUsedTime = Time.time;
-                            SpawnBullet(skill.skillPrefab);
+                            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+                            if (distanceToEnemy < shortestDistance)
+                            {
+                                shortestDistance = distanceToEnemy;
+                                nearestEnemy = enemy;
+                            }
                         }
-                    }
-                    break;
-                case SkillType.Passive:
-                    if(skill.lastUsedTime + skill.cooltime < Time.time)
-                    {
-                        skill.lastUsedTime = Time.time;
-                        SpawnBullet(skill.skillPrefab);
-                    }
-                    break;
+                        if (nearestEnemy != null)
+                        {
+                            dir = nearestEnemy.transform.position - transform.position;
+                        }
+                        break;
+                    case SkillTarget.RandomEnemy:
+                        GameObject[] enemies2 = GameObject.FindGameObjectsWithTag("Enemy");
+                        if (enemies2.Length > 0)
+                        {
+                            int randomIndex = Random.Range(0, enemies2.Length);
+                            dir = enemies2[randomIndex].transform.position - transform.position;
+                        }
+                        break;
+                    case SkillTarget.ClosetPlayer:
+                        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                        float shortestDistance2 = Mathf.Infinity;
+                        GameObject nearestPlayer = null;
+                        foreach (GameObject player in players)
+                        {
+                            if(player == gameObject)
+                                continue;
+                            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+                            if (distanceToPlayer < shortestDistance2)
+                            {
+                                shortestDistance2 = distanceToPlayer;
+                                nearestPlayer = player;
+                            }
+                        }
+                        if (nearestPlayer != null)
+                        {
+                            dir = nearestPlayer.transform.position - transform.position;
+                        }
+                        break;
+                }
+                SpawnBullet(skill.skillPrefab, skill,dir);
             }
         }
     }
-    
+
     [ServerRpc]
-    public void SpawnBullet(GameObject bulletPrefab)
+    public void SpawnBullet(GameObject bulletPrefab, PlayerSkill skill, Vector2 dir = default)
     {
         if (IsServer)
         {
             GameObject bullet = Instantiate(bulletPrefab);
             bullet.transform.position = transform.position;
             bullet.transform.rotation = transform.rotation;
-            
+
             Bullet bulletScript = bullet.GetComponent<Bullet>();
-            if(bulletScript != null)
+            if (bulletScript != null)
             {
-                bulletScript.direction = transform.up;
-                bulletScript.speed = 10f;
+                bulletScript.direction = dir.normalized;
+                bulletScript.speed = skill.speed;
+                bulletScript.penetration = skill.penetration;
+                bulletScript.duration = skill.duration;
             }
+
             ServerManager.Spawn(bullet);
         }
     }
-    
-    
+
+
 }

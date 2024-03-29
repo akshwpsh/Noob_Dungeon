@@ -327,6 +327,7 @@ MonoBehaviour:
   Defense: 10
   WalkSpeed: 5
   Skills: []
+  lastUsedTime: 
 --- !u!114 &4210143230946787485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,7 +452,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 30, y: 30}
+  m_Size: {x: 50, y: 50}
   m_EdgeRadius: 0
 --- !u!50 &282628558625522030
 Rigidbody2D:

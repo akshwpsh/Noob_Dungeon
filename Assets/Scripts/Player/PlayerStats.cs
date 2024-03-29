@@ -9,6 +9,7 @@ public class PlayerStats : MonoBehaviour
     public int Defense;
     public float WalkSpeed;
     public List<PlayerSkill> Skills = new List<PlayerSkill>();
+    public List<int> lastUsedTime = new List<int>();
     
     public PlayerStats(int health, int attackPower, int defense, float walkSpeed)
     {
@@ -21,10 +22,29 @@ public class PlayerStats : MonoBehaviour
     public void AddSkill(PlayerSkill skill)
     {
         Skills.Add(skill);
+        lastUsedTime.Add(0);
     }
     
     public void RemoveSkill(PlayerSkill skill)
     {
         Skills.Remove(skill);
+        lastUsedTime.RemoveAt(Skills.IndexOf(skill));
     }
+    
+    public bool isCooldownDone(PlayerSkill skill, float time)
+    {
+        int index = Skills.IndexOf(skill); 
+        if (time - lastUsedTime[index] >= skill.cooltime)
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    public void UseSkill(PlayerSkill skill)
+    {
+        int index = Skills.IndexOf(skill);
+        lastUsedTime[index] = (int)Time.time;
+    }
+
 }
