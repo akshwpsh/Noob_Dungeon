@@ -19,6 +19,8 @@ public class Enemy : NetworkBehaviour
     
     void UpdateTarget()
     {
+        if(!IsServer)
+            return;
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         float shortestDistance = Mathf.Infinity;
         GameObject nearestPlayer = null;
@@ -33,9 +35,18 @@ public class Enemy : NetworkBehaviour
             }
         }
 
-        if (nearestPlayer != null)
+        if (nearestPlayer != null && shortestDistance <= 30)
         {
             target = nearestPlayer.transform;
+        }
+        else if (players.Length > 0)
+        {
+            // If the nearest player is too far away, teleport to a random player.
+            int randomIndex = Random.Range(0, players.Length);
+            Transform randomPlayer = players[randomIndex].transform;
+            List<Transform> points =  randomPlayer.GetComponent<MobSpawner>().GetAllChildTransforms(randomPlayer.Find("MobSpawnPoints"));
+            Transform point = points[Random.Range(0, points.Count)];
+            transform.position = point.position;
         }
     }
     

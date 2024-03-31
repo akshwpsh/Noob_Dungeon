@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using FishNet.Connection;
 using FishNet.Managing.Server;
 using FishNet.Object;
 using UnityEngine;
@@ -14,7 +16,7 @@ public class Bullet : NetworkBehaviour
     public int penetration;
     [HideInInspector]
     public float duration;
-    
+
     private void Update()
     {
         Vector2 normalizedDirection = direction.normalized;
@@ -35,8 +37,23 @@ public class Bullet : NetworkBehaviour
             penetration--;
             if (penetration <= 0)
             {
-                ServerManager.Despawn(gameObject);
+                Despawn();
             }
         }
     }
+    
+    public void Despawn()
+    {
+        TrailRenderer trail = GetComponent<TrailRenderer>();
+        trail.emitting = false;
+        ServerManager.Despawn(gameObject);
+    }
+
+    public void setTrail()
+    {
+        TrailRenderer trail = GetComponent<TrailRenderer>();
+        trail.emitting = true;
+    }
+    
+    
 }

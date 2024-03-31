@@ -32,7 +32,7 @@ public class InGameManager : NetworkBehaviour
     
     void SpawnEnemy()
     {
-        GameObject enemy = Instantiate(enemyPrefab);
+        NetworkObject enemy = NetworkManager.GetPooledInstantiated(enemyPrefab, Vector3.zero, Quaternion.identity, false);
         ServerManager.Spawn(enemy);
     }
 }

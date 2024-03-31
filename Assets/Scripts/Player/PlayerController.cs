@@ -122,20 +122,23 @@ public class PlayerController : NetworkBehaviour
     {
         if (IsServer)
         {
-            GameObject bullet = Instantiate(bulletPrefab);
-            bullet.transform.position = transform.position;
-            bullet.transform.rotation = transform.rotation;
+            NetworkObject bulletNetworkObject = NetworkManager.GetPooledInstantiated(skill.skillPrefab, transform.position, transform.rotation,false);
 
-            Bullet bulletScript = bullet.GetComponent<Bullet>();
+            
+            bulletNetworkObject.transform.position = transform.position;
+            bulletNetworkObject.transform.rotation = transform.rotation;
+            
+            Bullet bulletScript = bulletNetworkObject.GetComponent<Bullet>();
             if (bulletScript != null)
             {
+                bulletScript.setTrail();
                 bulletScript.direction = dir.normalized;
                 bulletScript.speed = skill.speed;
                 bulletScript.penetration = skill.penetration;
                 bulletScript.duration = skill.duration;
             }
 
-            ServerManager.Spawn(bullet);
+            ServerManager.Spawn(bulletNetworkObject);
         }
     }
 
