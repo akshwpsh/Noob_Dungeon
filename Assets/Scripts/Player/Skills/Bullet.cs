@@ -28,7 +28,7 @@ public class Bullet : NetworkBehaviour
             ServerManager.Despawn(gameObject);
         }
         
-        /*
+        
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies)
         {
@@ -42,7 +42,8 @@ public class Bullet : NetworkBehaviour
                     Despawn();
                 }
             }
-        }*/
+        }
+        /*
         Collider2D[] hitColliders = new Collider2D[10];
         int numColliders = Physics2D.OverlapCircleNonAlloc(transform.position, 1.0f, hitColliders);
         for (int i = 0; i < numColliders; i++)
@@ -58,6 +59,7 @@ public class Bullet : NetworkBehaviour
                 }
             }
         }
+        */
     }
     public void Despawn()
     {

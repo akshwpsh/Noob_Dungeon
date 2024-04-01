@@ -23,7 +23,7 @@ public class MobSpawner : NetworkBehaviour
     {
         if (IsServer)
         {
-            InvokeRepeating("SpawnEnemy", 0.5f, 0.5f);
+            InvokeRepeating("SpawnEnemy", 0.1f, 0.1f);
         }
     }
     
