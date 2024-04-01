@@ -27,21 +27,38 @@ public class Bullet : NetworkBehaviour
         {
             ServerManager.Despawn(gameObject);
         }
-    }
-    
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Enemy"))
+        
+        /*
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
         {
-            other.GetComponent<Enemy>().TakeDamage(10);
-            penetration--;
-            if (penetration <= 0)
+            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+            if (distanceToEnemy <= 0.5f) // Change this value to the desired collision distance
             {
-                Despawn();
+                enemy.GetComponent<Enemy>().TakeDamage(10);
+                penetration--;
+                if (penetration <= 0)
+                {
+                    Despawn();
+                }
+            }
+        }*/
+        Collider2D[] hitColliders = new Collider2D[10];
+        int numColliders = Physics2D.OverlapCircleNonAlloc(transform.position, 1.0f, hitColliders);
+        for (int i = 0; i < numColliders; i++)
+        {
+            Collider2D hitCollider = hitColliders[i];
+            if (hitCollider.CompareTag("Enemy"))
+            {
+                hitCollider.GetComponent<Enemy>().TakeDamage(10);
+                penetration--;
+                if (penetration <= 0)
+                {
+                    Despawn();
+                }
             }
         }
     }
-    
     public void Despawn()
     {
         TrailRenderer trail = GetComponent<TrailRenderer>();
